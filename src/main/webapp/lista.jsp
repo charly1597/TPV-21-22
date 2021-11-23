@@ -33,6 +33,7 @@
             </tr>
             <%}%>
         </table>
+        <a href="index.html">Volver a inicio</a>
         <script type="text/javascript">
             function Confirmacion() {
                 if(confirm("¿Está seguro de que quiere eliminar el producto?")){

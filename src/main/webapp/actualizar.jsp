@@ -14,6 +14,7 @@
     </head>
     <body>
         <h1>Actualizar Producto</h1>
+        <a href="Servlet?op=listar">Volver</a>
         <% 
             String mensaje = ( String ) request.getAttribute("mensaje");
             String operacion = ( String ) request.getAttribute("operacion");
