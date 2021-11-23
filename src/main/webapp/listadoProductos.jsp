@@ -24,6 +24,7 @@
     </head>
     <body>
         <h1>Listado de productos</h1>
+        <a href="Servlet?op=insertar">Nuevo Producto</a>
         <table class="table">
             <tr>
                 <th>Id</th>
