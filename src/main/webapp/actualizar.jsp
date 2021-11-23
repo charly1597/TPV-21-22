@@ -16,10 +16,11 @@
         <h1>Actualizar Producto</h1>
         <% 
             String mensaje = ( String ) request.getAttribute("mensaje");
+            String operacion = ( String ) request.getAttribute("operacion");
         %>
         <h3><%=mensaje%></h3>
         <form action="Servlet">
-            <input type="hidden" value="actualizardatos" name="op">
+            <input type="text" value="<%=operacion%>" name="op">
             <p>ID: <input type="text" value="${producto.id}" name="id" readonly></p>
             <p>Nombre: <input type="text" value="${producto.nombre}" name="nombre"></p>
             <p>Imagen: <input type="text" value="${producto.imagen}" name="imagen"></p>

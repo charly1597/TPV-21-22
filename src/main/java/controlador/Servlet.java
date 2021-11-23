@@ -58,6 +58,8 @@ public class Servlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Productos miProducto = Crud.getProducto(id);
                 request.setAttribute("producto", miProducto);
+                request.setAttribute("mensaje", "");
+                request.setAttribute("operacion", "actualizardatos");
                 request.getRequestDispatcher("actualizar.jsp").forward(request, response);
             }
             
@@ -81,6 +83,29 @@ public class Servlet extends HttpServlet {
                 }
                 request.setAttribute("producto", p);
                 request.getRequestDispatcher("actualizar.jsp").forward(request, response);
+            }
+            
+            if (op.equals("insertar")) {
+                request.setAttribute("operacion", "insertardatos");
+                request.setAttribute("mensaje", "");
+                request.getRequestDispatcher("actualizar.jsp").forward(request, response);
+            }
+            
+            if (op.equals("insertardatos")) {
+                String nombre = request.getParameter("nombre");
+                String categoria = request.getParameter("categoria");
+                String imagen = request.getParameter("imagen");
+                float precio = Float.parseFloat(request.getParameter("precio"));
+                Productos p = new Productos();
+                p.setNombre(nombre);
+                p.setPrecio(precio);
+                p.setCategoria(categoria);
+                p.setImagen(imagen);
+                Crud.insertaProducto(p);
+                request.setAttribute("mensaje", "");
+                List<Productos> listaProductos=Crud.getProductos();
+                request.setAttribute("listado", listaProductos);
+                request.getRequestDispatcher("lista.jsp").forward(request, response);
             }
             
     }

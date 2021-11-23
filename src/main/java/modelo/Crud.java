@@ -15,13 +15,13 @@ import javax.persistence.Query;
  * @author Cristian
  */
 public class Crud {
-    
+
     public static int actualizaProducto(Productos miProducto) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
         String sql = "UPDATE Productos p SET p.nombre = :nombre, p.imagen = :imagen, p.categoria = :categoria, p.precio = :precio "
                 + "WHERE p.id = :id";
-        Query q = manager.createQuery(sql,Productos.class);
+        Query q = manager.createQuery(sql, Productos.class);
         q.setParameter("categoria", miProducto.getCategoria());
         q.setParameter("nombre", miProducto.getNombre());
         q.setParameter("imagen", miProducto.getImagen());
@@ -31,29 +31,29 @@ public class Crud {
         int filasAfectadas = q.executeUpdate();
         manager.getTransaction().commit();
 
-        return filasAfectadas; 
+        return filasAfectadas;
     }
-    
+
     public static Productos getProducto(int id) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
         String sql = "SELECT p FROM Productos p WHERE p.id=" + id;
-        Query q = manager.createQuery(sql,Productos.class); //método para consultas en JPQL
-        Productos productosBD = ( Productos )q.getSingleResult();
-        
+        Query q = manager.createQuery(sql, Productos.class); //método para consultas en JPQL
+        Productos productosBD = (Productos) q.getSingleResult();
+
         return productosBD;
     }
-    
+
     public static List<Productos> getProductos() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
         String sql = "SELECT * FROM productos";
-        Query q = manager.createNativeQuery(sql,Productos.class); //método para consultas en SQL
-        List<Productos> productosBD =  q.getResultList();
+        Query q = manager.createNativeQuery(sql, Productos.class); //método para consultas en SQL
+        List<Productos> productosBD = q.getResultList();
 
-        return productosBD;        
+        return productosBD;
     }
-    
+
     public static int destroyProducto(int id) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
@@ -62,8 +62,16 @@ public class Crud {
         manager.getTransaction().begin();
         int filasAfectadas = q.executeUpdate(); //para las consultas de modif. datos se usa el método executeUpdate
         manager.getTransaction().commit();
-        
+
         return filasAfectadas;
     }
-    
+
+    public static void insertaProducto(Productos p) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(p);
+        manager.getTransaction().commit();
+    }
+
 }
